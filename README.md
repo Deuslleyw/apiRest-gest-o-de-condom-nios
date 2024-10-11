@@ -1,2 +1,2 @@
-# apiRest-gest-o-de-condom-nios
+# apiRest-gestao-de-condominios
 Api para gerenciar condominios
