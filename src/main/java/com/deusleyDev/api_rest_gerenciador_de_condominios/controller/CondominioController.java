@@ -21,13 +21,9 @@ public class CondominioController {
     private CondominioService service;
 
     @PostMapping
-    public ResponseEntity<CondominioDto> create(@RequestBody CondominioDto condominioDto){
-
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest().path(ID)
-                .buildAndExpand(service.create(condominioDto).getId()).toUri();
-        return ResponseEntity.created(uri).build();
-
+    public ResponseEntity<Condominio> create(@RequestBody CondominioDto condominioDto){
+        var condominioCriado = service.create(condominioDto);
+        return ResponseEntity.ok().body(condominioCriado);
 
     }
 

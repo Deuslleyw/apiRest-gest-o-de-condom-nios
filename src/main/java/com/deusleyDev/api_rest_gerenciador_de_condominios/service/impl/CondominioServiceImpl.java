@@ -22,9 +22,10 @@ public class CondominioServiceImpl implements CondominioService {
 
     @Override
     public Condominio create(CondominioDto condominioDto) {
-        var condominio = condominioMapper.toCondominio(condominioDto);
-        var newCondominio  = repository.save(condominio);
-        return newCondominio;
+        var convertedCondominio = condominioMapper.toCondominio(condominioDto);
+        var condominioCriado  = repository.save(convertedCondominio);
+        return condominioCriado;
+
     }
 
     @Override
