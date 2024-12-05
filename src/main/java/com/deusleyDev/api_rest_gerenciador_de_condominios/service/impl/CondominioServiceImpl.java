@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CondominioServiceImpl implements CondominioService {
@@ -30,7 +31,13 @@ public class CondominioServiceImpl implements CondominioService {
 
     @Override
     public List<Condominio> findAll() {
-        var condominios  =  repository.findAll();
-        return condominios.stream().toList();
+        return repository.findAll();
+
+    }
+
+    @Override
+    public Condominio findById(Long id) {
+        Optional<Condominio> condominio = repository.findById(id);
+        return condominio.orElseThrow(()->new RuntimeException("Ops! Não encontrado"));
     }
 }

@@ -10,4 +10,6 @@ public interface CondominioService {
     Condominio create(CondominioDto condominioDto);
 
     List<Condominio> findAll ();
+
+    Condominio findById(Long id);
 }
