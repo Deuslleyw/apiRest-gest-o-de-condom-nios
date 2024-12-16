@@ -51,5 +51,11 @@ public class CondominioController {
         Condominio condominioAtualizado = service.update(id, condominioDto);
         return ResponseEntity.ok().body(condominioAtualizado);
     }
+    @DeleteMapping(value = ID)
+    public ResponseEntity<CondominioDto> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+
+    }
 
 }

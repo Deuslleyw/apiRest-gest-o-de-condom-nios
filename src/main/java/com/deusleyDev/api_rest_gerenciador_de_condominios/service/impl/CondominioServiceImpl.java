@@ -48,9 +48,13 @@ public class CondominioServiceImpl implements CondominioService {
                 .orElseThrow(() -> new RuntimeException("Condomínio não encontrado com ID: " + id));
        var condominioAtualizado = condominioMapper.toCondominio(condominioDto);
          condominioAtualizado.setId(condominioExistente.getId());
-
         return repository.save(condominioAtualizado);
+    }
 
-
+    @Override
+    public void delete(Long id) {
+        var condominioExistente = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Condomínio não encontrado com ID: " + id));
+        repository.deleteById(id);
     }
 }

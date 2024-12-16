@@ -15,4 +15,6 @@ public interface CondominioService {
 
     Condominio update(Long id , CondominioDto condominioDto);
 
+    void delete (Long id);
+
 }
