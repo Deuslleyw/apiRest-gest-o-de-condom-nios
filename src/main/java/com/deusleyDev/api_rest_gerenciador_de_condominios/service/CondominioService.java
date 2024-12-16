@@ -12,4 +12,7 @@ public interface CondominioService {
     List<Condominio> findAll ();
 
     Condominio findById(Long id);
+
+    Condominio update(Long id , CondominioDto condominioDto);
+
 }

@@ -40,10 +40,16 @@ public class CondominioController {
 
     @GetMapping(value = ID)
     public ResponseEntity<CondominioDto> findById(@PathVariable Long id) {
-        var response = service.findById(id);
-        var mapper = condominioMapper.fromCondominio(response);
+        var responseId = service.findById(id);
+        var mapper = condominioMapper.fromCondominio(responseId);
         return ResponseEntity.ok().body(mapper);
 
+    }
+    @PutMapping(value = ID)
+    public ResponseEntity<Condominio> update(@PathVariable Long id, @RequestBody CondominioDto condominioDto) {
+        condominioDto.setId(id);
+        Condominio condominioAtualizado = service.update(id, condominioDto);
+        return ResponseEntity.ok().body(condominioAtualizado);
     }
 
 }

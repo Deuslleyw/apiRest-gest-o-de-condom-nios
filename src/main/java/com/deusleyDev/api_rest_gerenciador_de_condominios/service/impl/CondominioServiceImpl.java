@@ -24,7 +24,7 @@ public class CondominioServiceImpl implements CondominioService {
     @Override
     public Condominio create(CondominioDto condominioDto) {
         var convertedCondominio = condominioMapper.toCondominio(condominioDto);
-        var condominioCriado  = repository.save(convertedCondominio);
+        var condominioCriado = repository.save(convertedCondominio);
         return condominioCriado;
 
     }
@@ -38,6 +38,19 @@ public class CondominioServiceImpl implements CondominioService {
     @Override
     public Condominio findById(Long id) {
         Optional<Condominio> condominio = repository.findById(id);
-        return condominio.orElseThrow(()->new RuntimeException("Ops! Não encontrado"));
+        return condominio.orElseThrow(() -> new RuntimeException("Ops! Não encontrado com ID: " + id));
+    }
+
+    @Override
+    public Condominio update(Long id, CondominioDto condominioDto) {
+
+        var condominioExistente = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Condomínio não encontrado com ID: " + id));
+       var condominioAtualizado = condominioMapper.toCondominio(condominioDto);
+         condominioAtualizado.setId(condominioExistente.getId());
+
+        return repository.save(condominioAtualizado);
+
+
     }
 }

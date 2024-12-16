@@ -18,5 +18,6 @@ public class CondominioDto {
     private String notas;
 
     private List<FuncionarioDto> funcionarios = new ArrayList<>();
+    private List<ApartamentoDto> apartamentos = new ArrayList<>();
 
 }
