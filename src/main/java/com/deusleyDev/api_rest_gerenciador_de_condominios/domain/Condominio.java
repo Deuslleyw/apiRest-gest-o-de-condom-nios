@@ -1,5 +1,6 @@
 package com.deusleyDev.api_rest_gerenciador_de_condominios.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,10 +24,12 @@ public class Condominio {
     private String endereco;
     private String notas;
 
-    @OneToMany(mappedBy = "condominio")
-    private List<Funcionario> funcionarios = new ArrayList<>();
+  @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL)
+  @JsonManagedReference
+  private List<Funcionario> funcionarios = new ArrayList<>();
 
-    @OneToMany(mappedBy = "condominio")
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Apartamento> apartamentos = new ArrayList<>();
 
 }

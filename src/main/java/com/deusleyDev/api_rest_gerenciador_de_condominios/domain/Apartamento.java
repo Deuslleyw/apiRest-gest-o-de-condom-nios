@@ -1,5 +1,6 @@
 package com.deusleyDev.api_rest_gerenciador_de_condominios.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,8 @@ public class Apartamento {
 
 
     @ManyToOne
-    @JoinColumn(name = "condominio_id")
+    @JoinColumn(name = "condominio_id", nullable = false)
+    @JsonBackReference  // Evita loop infinito
     private Condominio condominio;
 
     @OneToMany(mappedBy = "apartamento")

@@ -22,6 +22,5 @@ public class Morador {
 
 
     @ManyToOne
-    @JoinColumn(name = "apartamento_id")
     private Apartamento apartamento;
 }

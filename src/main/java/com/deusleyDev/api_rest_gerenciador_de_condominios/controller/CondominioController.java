@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "api/v1/condominios")
@@ -27,7 +26,6 @@ public class CondominioController {
     public ResponseEntity<Condominio> create(@RequestBody CondominioDto condominioDto) {
         var condominioCriado = service.create(condominioDto);
         return ResponseEntity.ok().body(condominioCriado);
-
     }
 
     @GetMapping
@@ -35,7 +33,6 @@ public class CondominioController {
         var responseAll = service.findAll();
         var mapper = condominioMapper.toDTOList(responseAll);
         return ResponseEntity.ok().body(mapper);
-
     }
 
     @GetMapping(value = ID)

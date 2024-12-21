@@ -22,6 +22,5 @@ public class Funcionario {
 
 
     @ManyToOne
-    @JoinColumn(name = "condominio_id")
     private Condominio condominio;
 }

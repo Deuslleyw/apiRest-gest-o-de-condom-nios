@@ -16,6 +16,5 @@ public class ApartamentoDto {
     private Long id;
     private Long numero;
     private String bloco;
-
     private List<MoradorDto> moradores = new ArrayList<>();
 }
