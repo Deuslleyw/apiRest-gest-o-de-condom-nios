@@ -22,7 +22,6 @@ public class Apartamento {
     private Long numero;
     private String bloco;
 
-
     @ManyToOne
     @JoinColumn(name = "condominio_id", nullable = false)
     @JsonBackReference  // Evita loop infinito

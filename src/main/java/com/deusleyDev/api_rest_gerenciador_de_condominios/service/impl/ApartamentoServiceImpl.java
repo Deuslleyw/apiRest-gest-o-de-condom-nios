@@ -10,6 +10,9 @@ import com.deusleyDev.api_rest_gerenciador_de_condominios.service.ApartamentoSer
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ApartamentoServiceImpl implements ApartamentoService {
 
@@ -32,5 +35,54 @@ public class ApartamentoServiceImpl implements ApartamentoService {
         return apartamentoRepository.save(apartamento);
     }
 
-}
+    @Override
+    public List<Apartamento> findAll() {
+        return apartamentoRepository.findAll();
+    }
 
+    @Override
+    public Apartamento findById(Long id) {
+        Optional<Apartamento> apartamento = apartamentoRepository.findById(id);
+        return apartamento.orElseThrow(() -> new RuntimeException(
+                "Ops! Não encontrado o apartamento com ID: " + id));
+    }
+
+    @Override
+    public Apartamento update(Long condominioId, Long id, ApartamentoDto apartamentoDto) {
+        var apartamentoExistente = apartamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Apartamento não encontrado com ID: " + id));
+
+        var condominio = condominioRepository.findById(condominioId)
+                .orElseThrow(() -> new RuntimeException("Condomínio não encontrado com ID: " + condominioId));
+
+        if (!apartamentoExistente.getCondominio().getId().equals(condominioId)) {
+            throw new IllegalArgumentException("O apartamento não pertence ao condomínio informado.");
+        }
+
+        var apartamentoAtualizado = apartamentoMapper.toApartamento(apartamentoDto);
+        apartamentoAtualizado.setId(apartamentoExistente.getId());
+        apartamentoAtualizado.setCondominio(condominio);
+
+        return apartamentoRepository.save(apartamentoAtualizado);
+
+
+
+    }
+
+    @Override
+    public void delete(Long condominioId, Long id) {
+        var apartamentoExistente = apartamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Apartamento não encontrado com ID: " + id));
+
+        var condominio = condominioRepository.findById(condominioId)
+                .orElseThrow(() -> new RuntimeException("Condomínio não encontrado com ID: " + condominioId));
+
+        if (!apartamentoExistente.getCondominio().getId().equals(condominioId)) {
+            throw new IllegalArgumentException("O apartamento não pertence ao condomínio informado.");
+        }
+        apartamentoRepository.delete(apartamentoExistente);
+
+    }
+
+
+}
