@@ -3,6 +3,9 @@ package com.deusleyDev.api_rest_gerenciador_de_condominios.service.impl;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.domain.Apartamento;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.domain.Condominio;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.dto.ApartamentoDto;
+import com.deusleyDev.api_rest_gerenciador_de_condominios.exceptions.ApartamentoNotFoundException;
+import com.deusleyDev.api_rest_gerenciador_de_condominios.exceptions.CondominioNotFoundException;
+import com.deusleyDev.api_rest_gerenciador_de_condominios.exceptions.DataIntegrityViolationException;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.mapper.ApartamentoMapper;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.repository.ApartamentoRepository;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.repository.CondominioRepository;
@@ -29,7 +32,7 @@ public class ApartamentoServiceImpl implements ApartamentoService {
     @Override
     public Apartamento create(Long condominioId, ApartamentoDto apartamentoDto) {
         Condominio condominio = condominioRepository.findById(condominioId)
-                .orElseThrow(() -> new RuntimeException("Condomínio não encontrado"));
+                .orElseThrow(() -> new CondominioNotFoundException("Condomínio não encontrado"));
         Apartamento apartamento = apartamentoMapper.toApartamento(apartamentoDto);
         apartamento.setCondominio(condominio);
         return apartamentoRepository.save(apartamento);
@@ -43,20 +46,20 @@ public class ApartamentoServiceImpl implements ApartamentoService {
     @Override
     public Apartamento findById(Long id) {
         Optional<Apartamento> apartamento = apartamentoRepository.findById(id);
-        return apartamento.orElseThrow(() -> new RuntimeException(
+        return apartamento.orElseThrow(() -> new ApartamentoNotFoundException(
                 "Ops! Não encontrado o apartamento com ID: " + id));
     }
 
     @Override
     public Apartamento update(Long condominioId, Long id, ApartamentoDto apartamentoDto) {
         var apartamentoExistente = apartamentoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Apartamento não encontrado com ID: " + id));
+                .orElseThrow(() -> new ApartamentoNotFoundException("Apartamento não encontrado com ID: " + id));
 
         var condominio = condominioRepository.findById(condominioId)
-                .orElseThrow(() -> new RuntimeException("Condomínio não encontrado com ID: " + condominioId));
+                .orElseThrow(() -> new CondominioNotFoundException("Condomínio não encontrado com ID: " + condominioId));
 
         if (!apartamentoExistente.getCondominio().getId().equals(condominioId)) {
-            throw new IllegalArgumentException("O apartamento não pertence ao condomínio informado.");
+            throw new DataIntegrityViolationException("O apartamento não pertence ao condomínio informado.");
         }
 
         var apartamentoAtualizado = apartamentoMapper.toApartamento(apartamentoDto);
@@ -72,13 +75,13 @@ public class ApartamentoServiceImpl implements ApartamentoService {
     @Override
     public void delete(Long condominioId, Long id) {
         var apartamentoExistente = apartamentoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Apartamento não encontrado com ID: " + id));
+                .orElseThrow(() -> new ApartamentoNotFoundException("Apartamento não encontrado com ID: " + id));
 
         var condominio = condominioRepository.findById(condominioId)
-                .orElseThrow(() -> new RuntimeException("Condomínio não encontrado com ID: " + condominioId));
+                .orElseThrow(() -> new CondominioNotFoundException("Condomínio não encontrado com ID: " + condominioId));
 
         if (!apartamentoExistente.getCondominio().getId().equals(condominioId)) {
-            throw new IllegalArgumentException("O apartamento não pertence ao condomínio informado.");
+            throw new DataIntegrityViolationException("O apartamento não pertence ao condomínio informado.");
         }
         apartamentoRepository.delete(apartamentoExistente);
 
