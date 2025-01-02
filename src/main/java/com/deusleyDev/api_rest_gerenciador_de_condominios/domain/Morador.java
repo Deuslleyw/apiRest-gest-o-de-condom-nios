@@ -1,5 +1,6 @@
 package com.deusleyDev.api_rest_gerenciador_de_condominios.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +23,6 @@ public class Morador {
 
 
     @ManyToOne
+    @JsonManagedReference
     private Apartamento apartamento;
 }

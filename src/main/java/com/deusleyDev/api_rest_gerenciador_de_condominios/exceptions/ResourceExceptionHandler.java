@@ -15,7 +15,6 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> apartamentoNotFound(ApartamentoNotFoundException er, HttpServletRequest request) {
         StandardError error = new StandardError(LocalDateTime
                 .now(), HttpStatus.NOT_FOUND.value(), er.getMessage(), request.getRequestURI());
-
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
@@ -24,7 +23,6 @@ public class ResourceExceptionHandler {
             CondominioNotFoundException er, HttpServletRequest request) {
         StandardError error = new StandardError(LocalDateTime
                 .now(), HttpStatus.BAD_REQUEST.value(), er.getMessage(), request.getRequestURI());
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
@@ -32,7 +30,6 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> dataIntegrityViolation(DataIntegrityViolationException er, HttpServletRequest request) {
         StandardError error = new StandardError(LocalDateTime
                 .now(), HttpStatus.BAD_REQUEST.value(), er.getMessage(), request.getRequestURI());
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

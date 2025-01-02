@@ -24,9 +24,10 @@ public class Apartamento {
 
     @ManyToOne
     @JoinColumn(name = "condominio_id", nullable = false)
-    @JsonBackReference  // Evita loop infinito
+    @JsonBackReference
     private Condominio condominio;
 
     @OneToMany(mappedBy = "apartamento")
+    @JsonBackReference
     private List<Morador> moradores = new ArrayList<>();
 }
