@@ -16,6 +16,8 @@ public class MoradorController {
 
     public static final String COND_ID_AP_ID = "/{condominioId}/{apartamentoId}/morador";
     public static final String COND_ID_AP_ID_MID = "/{condominioId}/{apartamentoId}/{moradorId}/morador";
+    public static final String M_CPF = "/morador/cpf/{cpf}";
+
 
 
     @Autowired
@@ -63,5 +65,11 @@ public class MoradorController {
         moradorService.delete(condominioId, apartamentoId, moradorId);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping(M_CPF)
+    public ResponseEntity<MoradorDto> findByCpf(@PathVariable String cpf) {
+        MoradorDto moradorDto = moradorService.findByCpf(cpf);
+        return ResponseEntity.ok().body(moradorDto);
+    }
+
 
 }

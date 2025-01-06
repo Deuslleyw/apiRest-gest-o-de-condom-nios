@@ -96,5 +96,12 @@ public class MoradorServiceImpl implements MoradorService {
             moradorRepository.deleteById(moradorExistente.getId());
         }
 
+    @Override
+    public MoradorDto findByCpf(String cpf) {
+
+        var morador = moradorRepository.findByCpf(cpf)
+                .orElseThrow(() -> new MoradorNotFoundException("Morador não encontrado com o CPF: " + cpf));
+        return moradorMapper.fromMorador(morador);
     }
 
+}

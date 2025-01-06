@@ -10,4 +10,6 @@ public interface MoradorService {
     Morador update( Long condominioId, Long apartamentoId, Long moradorId, MoradorDto moradorDto);
 
     void delete(Long condominioId, Long apartamentoId, Long moradorId);
+
+    MoradorDto findByCpf(String cpf);
 }
