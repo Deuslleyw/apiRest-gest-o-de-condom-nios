@@ -47,4 +47,34 @@ public class MoradorServiceImpl implements MoradorService {
 
 
     }
-}
+
+    @Override
+    public Morador update(Long condominioId, Long apartamentoId, Long moradorId, MoradorDto moradorDto) {
+
+            var apartamentoExistente = apartamentoRepository.findById(apartamentoId)
+                    .orElseThrow(() -> new RuntimeException("Apartamento não encontrado com ID: " + apartamentoId));
+
+            var condominio = condominioRepository.findById(condominioId)
+                    .orElseThrow(() -> new RuntimeException("Condomínio não encontrado com ID: " + condominioId));
+
+            if (!apartamentoExistente.getCondominio().getId().equals(condominioId)) {
+                throw new IllegalArgumentException("O apartamento não pertence ao condomínio informado.");
+            }
+
+            var moradores = apartamentoExistente.getMoradores();
+            var moradorExistente = moradores.stream()
+                    .filter(morador -> morador.getId().equals(moradorId))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Morador não encontrado no apartamento."));
+
+            moradorExistente.setNome(moradorDto.getNome());
+            moradorExistente.setCpf(moradorDto.getCpf());
+            moradorExistente.setTelefone(moradorDto.getTelefone());
+            moradorExistente.setEmail(moradorDto.getEmail());
+
+            return moradorRepository.save(moradorExistente);
+        }
+
+    }
+
+

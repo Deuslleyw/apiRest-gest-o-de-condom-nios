@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "api/v1/condominios/apartamentos/moradores")
 public class MoradorController {
 
-    public static final String COND_ID_AP_ID = "/{condominioId}/{apartamentoId}";
+    public static final String COND_ID_AP_ID = "/{condominioId}/{apartamentoId}/morador";
+    public static final String COND_ID_AP_ID_MID = "/{condominioId}/{apartamentoId}/{moradorId}/morador";
+
 
     @Autowired
     private MoradorService moradorService;
+
 
 
     @PostMapping(COND_ID_AP_ID)
@@ -36,5 +39,20 @@ public class MoradorController {
         }
     }
 
+    @PutMapping(COND_ID_AP_ID_MID)
+    public ResponseEntity<?> update(
+            @PathVariable Long condominioId,
+            @PathVariable Long apartamentoId,
+            @PathVariable Long moradorId,
+            @RequestBody MoradorDto moradorDto) {
+        try {
+            Morador moradorAtualizado = moradorService.update(condominioId, apartamentoId, moradorId ,moradorDto);
+            return ResponseEntity.ok(moradorAtualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar morador.");
+        }
+    }
 
 }
