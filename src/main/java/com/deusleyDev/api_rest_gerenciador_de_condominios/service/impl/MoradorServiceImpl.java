@@ -5,6 +5,7 @@ import com.deusleyDev.api_rest_gerenciador_de_condominios.dto.MoradorDto;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.exceptions.ApartamentoNotFoundException;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.exceptions.CondominioNotFoundException;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.exceptions.DataIntegrityViolationException;
+import com.deusleyDev.api_rest_gerenciador_de_condominios.exceptions.MoradorNotFoundException;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.mapper.MoradorMapper;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.repository.ApartamentoRepository;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.repository.CondominioRepository;
@@ -75,6 +76,25 @@ public class MoradorServiceImpl implements MoradorService {
             return moradorRepository.save(moradorExistente);
         }
 
-    }
+    @Override
+    public void delete(Long condominioId, Long apartamentoId, Long moradorId) {
 
+            var apartamentoExistente = apartamentoRepository.findById(apartamentoId)
+                    .orElseThrow(() -> new ApartamentoNotFoundException(
+                            "Apartamento não encontrado com ID: " + apartamentoId));
+
+            if (!apartamentoExistente.getCondominio().getId().equals(condominioId)) {
+                throw new DataIntegrityViolationException("O apartamento não pertence ao condomínio informado.");
+            }
+
+            var moradorExistente = apartamentoExistente.getMoradores().stream()
+                    .filter(morador -> morador.getId().equals(moradorId))
+                    .findFirst()
+                    .orElseThrow(() -> new MoradorNotFoundException("Morador não encontrado no apartamento."));
+            apartamentoExistente.getMoradores().remove(moradorExistente);
+
+            moradorRepository.deleteById(moradorExistente.getId());
+        }
+
+    }
 

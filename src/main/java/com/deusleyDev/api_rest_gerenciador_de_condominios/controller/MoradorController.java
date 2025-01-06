@@ -55,4 +55,13 @@ public class MoradorController {
         }
     }
 
+    @DeleteMapping(COND_ID_AP_ID_MID)
+    public ResponseEntity<?> delete(
+            @PathVariable Long condominioId,
+            @PathVariable Long apartamentoId,
+            @PathVariable Long moradorId) {
+        moradorService.delete(condominioId, apartamentoId, moradorId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

@@ -8,4 +8,6 @@ public interface MoradorService {
     Morador create (Long condominioId, Long apartamentoId, MoradorDto moradorDto);
 
     Morador update( Long condominioId, Long apartamentoId, Long moradorId, MoradorDto moradorDto);
+
+    void delete(Long condominioId, Long apartamentoId, Long moradorId);
 }
