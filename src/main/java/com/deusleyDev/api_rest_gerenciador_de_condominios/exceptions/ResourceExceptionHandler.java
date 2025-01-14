@@ -42,4 +42,12 @@ public class ResourceExceptionHandler {
                 .now(), HttpStatus.BAD_REQUEST.value(), er.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+    @ExceptionHandler(FuncionarioNotFoundException.class)
+    public ResponseEntity<StandardError> funcionarioNotFound(
+            FuncionarioNotFoundException er, HttpServletRequest request) {
+        StandardError error = new StandardError(LocalDateTime
+                .now(), HttpStatus.BAD_REQUEST.value(), er.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+}
+
 }
