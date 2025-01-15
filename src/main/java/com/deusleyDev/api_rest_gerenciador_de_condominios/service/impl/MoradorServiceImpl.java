@@ -42,7 +42,7 @@ public class MoradorServiceImpl implements MoradorService {
             throw new DataIntegrityViolationException("O apartamento não pertence ao condomínio informado.");
         }
 
-        Morador morador = moradorMapper.toMorador(moradorDto);
+        var morador = moradorMapper.toMorador(moradorDto);
         morador.setApartamento(apartamentoExistente);
         return moradorRepository.save(morador);
 

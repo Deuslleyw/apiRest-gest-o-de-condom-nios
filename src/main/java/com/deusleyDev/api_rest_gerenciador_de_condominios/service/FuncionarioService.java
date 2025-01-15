@@ -10,4 +10,6 @@ public interface FuncionarioService {
     FuncionarioDto findByCpfFuncionario(String cpf);
 
     void delete(Long condominioId, Long funcionarioId);
+
+    Funcionario update(Long condominioId, Long funcionarioId, FuncionarioDto funcionarioDto);
 }

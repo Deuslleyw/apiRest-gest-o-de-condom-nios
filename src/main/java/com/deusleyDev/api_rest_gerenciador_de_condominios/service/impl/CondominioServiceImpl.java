@@ -24,9 +24,12 @@ public class CondominioServiceImpl implements CondominioService {
 
     @Override
     public Condominio create(CondominioDto condominioDto) {
+
         var convertedCondominio = condominioMapper.toCondominio(condominioDto);
-        var condominioCriado = repository.save(convertedCondominio);
-        return condominioCriado;
+        if (convertedCondominio.getEndereco() != null) {
+            convertedCondominio.getEndereco().setCondominio(convertedCondominio);      ///em teste
+        }
+        return repository.save(convertedCondominio);
 
     }
 
@@ -49,7 +52,15 @@ public class CondominioServiceImpl implements CondominioService {
                 .orElseThrow(() -> new CondominioNotFoundException("Condomínio não encontrado com ID: " + id));
        var condominioAtualizado = condominioMapper.toCondominio(condominioDto);
          condominioAtualizado.setId(condominioExistente.getId());
+        if (condominioAtualizado.getEndereco() != null) {
+            condominioAtualizado.getEndereco().setId(
+                    condominioExistente.getEndereco() != null ? condominioExistente.getEndereco().getId() : null
+            );
+            condominioAtualizado.getEndereco().setCondominio(condominioAtualizado);
+        }
         return repository.save(condominioAtualizado);
+
+        /////EM TESTE ---<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     }
 
     @Override

@@ -57,4 +57,28 @@ public class FuncionarioServiceImpl implements FuncionarioService {
             funcionarioRepository.deleteById(funcionarioId);
 
     }
+
+    @Override
+    public Funcionario update(Long condominioId, Long funcionarioId, FuncionarioDto funcionarioDto) {
+
+        var funcionarioExistente = funcionarioRepository.findById(funcionarioId)
+                .orElseThrow(() -> new FuncionarioNotFoundException(
+                        "Funcionario não encontrado com ID: " + funcionarioId));
+
+        var condominio = condominioRepository.findById(condominioId)
+                .orElseThrow(() -> new CondominioNotFoundException(
+                        "Condomínio não encontrado com ID: " + condominioId));
+
+        if (!funcionarioExistente.getCondominio().getId().equals(condominioId)) {
+            throw new DataIntegrityViolationException(
+                    "O funcionario não pertence ao condomínio informado.");
+        }
+
+        var funcionarioAtualizado = funcionarioMapper.toFuncionario(funcionarioDto);
+        funcionarioAtualizado.setId(funcionarioExistente.getId());
+        funcionarioAtualizado.setCondominio(condominio);
+
+        return funcionarioRepository.save(funcionarioAtualizado);
+
+    }
 }

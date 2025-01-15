@@ -49,6 +49,14 @@ public class FuncionarioController {
 
 
     }
+    @PutMapping (COND_ID_FUNC_ID)
+    public ResponseEntity<Funcionario> update(
+            @PathVariable Long condominioId,
+            @PathVariable Long funcionarioId, @RequestBody FuncionarioDto funcionarioDto) {
+        funcionarioDto.setId(funcionarioId);
+        var funcionarioAtualizado = funcionarioService.update(condominioId, funcionarioId, funcionarioDto);
+        return ResponseEntity.ok().body(funcionarioAtualizado);
 
+    }
 
-}
+    }

@@ -14,8 +14,8 @@ public class CondominioDto {
 
     private Long id;
     private String nome;
-    private String endereco;
     private String notas;
+    private EnderecoDto endereco;
 
     private List<FuncionarioDto> funcionarios = new ArrayList<>();
     private List<ApartamentoDto> apartamentos = new ArrayList<>();
