@@ -42,14 +42,16 @@ public class CondominioServiceImpl implements CondominioService {
     @Override
     public Condominio findById(Long id) {
         Optional<Condominio> condominio = repository.findById(id);
-        return condominio.orElseThrow(() -> new CondominioNotFoundException("Ops! Não encontrado com ID: " + id));
+        return condominio.orElseThrow(() -> new CondominioNotFoundException(
+                "Condominio Não encontrado com ID: " + id));
     }
 
     @Override
     public Condominio update(Long id, CondominioDto condominioDto) {
 
         var condominioExistente = repository.findById(id)
-                .orElseThrow(() -> new CondominioNotFoundException("Condomínio não encontrado com ID: " + id));
+                .orElseThrow(() -> new CondominioNotFoundException(
+                        "Condomínio não encontrado com ID: " + id));
         var condominioAtualizado = condominioMapper.toCondominio(condominioDto);
         condominioAtualizado.setId(condominioExistente.getId());
         if (condominioAtualizado.getEndereco() != null) {
@@ -65,7 +67,8 @@ public class CondominioServiceImpl implements CondominioService {
     @Override
     public void delete(Long id) {
         var condominioExistente = repository.findById(id)
-                .orElseThrow(() -> new CondominioNotFoundException("Condomínio não encontrado com ID: " + id));
+                .orElseThrow(() -> new CondominioNotFoundException(
+                        "Condomínio não encontrado com ID: " + id));
         repository.deleteById(id);
     }
 }
