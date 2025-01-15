@@ -9,12 +9,12 @@ public interface CondominioService {
 
     Condominio create(CondominioDto condominioDto);
 
-    List<Condominio> findAll ();
+    List<Condominio> findAll();
 
     Condominio findById(Long id);
 
-    Condominio update(Long id , CondominioDto condominioDto);
+    Condominio update(Long id, CondominioDto condominioDto);
 
-    void delete (Long id);
+    void delete(Long id);
 
 }

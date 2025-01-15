@@ -19,10 +19,8 @@ public class MoradorController {
     public static final String M_CPF = "/morador/cpf/{cpf}";
 
 
-
     @Autowired
     private MoradorService moradorService;
-
 
 
     @PostMapping(COND_ID_AP_ID)
@@ -48,8 +46,8 @@ public class MoradorController {
             @PathVariable Long moradorId,
             @RequestBody MoradorDto moradorDto) {
         try {
-            Morador moradorAtualizado = moradorService.update(condominioId, apartamentoId, moradorId ,moradorDto);
-            return ResponseEntity.ok(moradorAtualizado);
+            Morador moradorAtualizado = moradorService.update(condominioId, apartamentoId, moradorId, moradorDto);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(moradorAtualizado);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
@@ -63,8 +61,9 @@ public class MoradorController {
             @PathVariable Long apartamentoId,
             @PathVariable Long moradorId) {
         moradorService.delete(condominioId, apartamentoId, moradorId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
     @GetMapping(M_CPF)
     public ResponseEntity<MoradorDto> findByCpf(@PathVariable String cpf) {
         MoradorDto moradorDto = moradorService.findByCpf(cpf);

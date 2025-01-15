@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MoradorDto {
 
-
     private Long id;
     private String nome;
     private String cpf;

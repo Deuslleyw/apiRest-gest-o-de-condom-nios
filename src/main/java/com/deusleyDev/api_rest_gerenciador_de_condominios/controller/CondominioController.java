@@ -5,6 +5,7 @@ import com.deusleyDev.api_rest_gerenciador_de_condominios.dto.CondominioDto;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.mapper.CondominioMapper;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.service.CondominioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,33 +26,33 @@ public class CondominioController {
     @PostMapping
     public ResponseEntity<Condominio> create(@RequestBody CondominioDto condominioDto) {
         var condominioCriado = service.create(condominioDto);
-        return ResponseEntity.ok().body(condominioCriado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(condominioCriado);
     }
 
     @GetMapping
     public ResponseEntity<List<CondominioDto>> findAll() {
         var responseAll = service.findAll();
         var mapper = condominioMapper.toDTOList(responseAll);
-        return ResponseEntity.ok().body(mapper);
+        return ResponseEntity.status(HttpStatus.OK).body(mapper);
     }
 
     @GetMapping(value = ID)
     public ResponseEntity<CondominioDto> findById(@PathVariable Long id) {
         var responseId = service.findById(id);
         var mapper = condominioMapper.fromCondominio(responseId);
-        return ResponseEntity.ok().body(mapper);
+        return ResponseEntity.status(HttpStatus.OK).body(mapper);
 
     }
     @PutMapping(value = ID)
     public ResponseEntity<Condominio> update(@PathVariable Long id, @RequestBody CondominioDto condominioDto) {
         condominioDto.setId(id);
         Condominio condominioAtualizado = service.update(id, condominioDto);
-        return ResponseEntity.ok().body(condominioAtualizado);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(condominioAtualizado);
     }
     @DeleteMapping(value = ID)
     public ResponseEntity<CondominioDto> delete(@PathVariable Long id){
         service.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 

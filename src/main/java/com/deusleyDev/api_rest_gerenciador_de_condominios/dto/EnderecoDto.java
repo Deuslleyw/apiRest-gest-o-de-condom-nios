@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class EnderecoDto {
 
-
     private String logradouro;
     private String numero;
     private String complemento;
@@ -17,6 +16,5 @@ public class EnderecoDto {
     private String cidade;
     private String estado;
     private String cep;
-
 
 }

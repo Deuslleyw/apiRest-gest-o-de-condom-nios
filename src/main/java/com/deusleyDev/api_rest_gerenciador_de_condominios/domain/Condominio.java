@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table (name = "CONDOMINIOS")
+@Table(name = "CONDOMINIOS")
 public class Condominio {
 
 
@@ -21,19 +21,17 @@ public class Condominio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-  ///  private String endereco;
     private String notas;
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id")      /////TESTE  - - IMPLEMENTANDO.....
+    @JoinColumn(name = "endereco_id")
     @JsonManagedReference
     private Endereco endereco;
 
-
-  @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL)
-  @JsonManagedReference
-  private List<Funcionario> funcionarios = new ArrayList<>();
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Funcionario> funcionarios = new ArrayList<>();
 
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL)
     @JsonManagedReference

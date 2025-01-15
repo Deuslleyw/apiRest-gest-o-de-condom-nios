@@ -27,7 +27,7 @@ public class Apartamento {
     @JsonBackReference
     private Condominio condominio;
 
-    @OneToMany(mappedBy = "apartamento" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "apartamento", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Morador> moradores = new ArrayList<>();
 }

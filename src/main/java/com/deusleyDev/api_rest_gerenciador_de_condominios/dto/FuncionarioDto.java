@@ -14,4 +14,5 @@ public class FuncionarioDto {
     private String nome;
     private String cpf;
     private Long telefone;
+    private String cargo;
 }

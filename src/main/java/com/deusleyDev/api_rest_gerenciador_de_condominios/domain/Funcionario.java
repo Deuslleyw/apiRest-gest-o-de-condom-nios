@@ -20,7 +20,7 @@ public class Funcionario {
     private String nome;
     private String cpf;
     private Long telefone;
-
+    private String cargo;
 
     @ManyToOne
     @JsonBackReference

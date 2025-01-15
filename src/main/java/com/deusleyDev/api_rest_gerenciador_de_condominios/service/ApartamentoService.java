@@ -8,14 +8,13 @@ import java.util.List;
 public interface ApartamentoService {
 
 
-
     Apartamento create(Long condominioId, ApartamentoDto apartamentoDto);
 
     List<Apartamento> findAll();
 
     Apartamento findById(Long id);
 
-    Apartamento update (Long condominioId, Long id, ApartamentoDto apartamentoDto);
+    Apartamento update(Long condominioId, Long id, ApartamentoDto apartamentoDto);
 
     void delete(Long condominioId, Long id);
 

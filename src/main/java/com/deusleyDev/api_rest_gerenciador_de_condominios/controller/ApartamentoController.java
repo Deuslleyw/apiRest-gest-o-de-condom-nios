@@ -38,24 +38,24 @@ public class ApartamentoController {
     public ResponseEntity<List<ApartamentoDto>> findAll() {
         var responseAll = apartamentoService.findAll();
         var mapper = apartamentoMapper.toDTOList(responseAll);
-        return ResponseEntity.ok().body(mapper);
+        return ResponseEntity.status(HttpStatus.OK).body(mapper);
     }
 
     @GetMapping(value = ID)
     public ResponseEntity<ApartamentoDto> findById(@PathVariable Long id) {
         var responseId = apartamentoService.findById(id);
         var mapper = apartamentoMapper.fromApartamento(responseId);
-        return ResponseEntity.ok().body(mapper);
+        return ResponseEntity.status(HttpStatus.OK).body(mapper);
     }
 
-    @PutMapping (COND_ID_AP_ID)
+    @PutMapping(COND_ID_AP_ID)
     public ResponseEntity<Apartamento> update(
             @PathVariable Long condominioId,
 
             @PathVariable Long id, @RequestBody ApartamentoDto apartamentoDto) {
         apartamentoDto.setId(id);
-        Apartamento apartamentoAtualizado = apartamentoService.update(condominioId ,id, apartamentoDto);
-        return ResponseEntity.ok().body(apartamentoAtualizado);
+        Apartamento apartamentoAtualizado = apartamentoService.update(condominioId, id, apartamentoDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(apartamentoAtualizado);
 
     }
 
@@ -72,8 +72,6 @@ public class ApartamentoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar o apartamento.");
         }
     }
-
-
 
 
 }

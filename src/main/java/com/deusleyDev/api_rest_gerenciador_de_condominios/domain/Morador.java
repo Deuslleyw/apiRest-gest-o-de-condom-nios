@@ -21,7 +21,6 @@ public class Morador {
     private Long telefone;
     private String email;
 
-
     @ManyToOne
     @JsonManagedReference
     private Apartamento apartamento;

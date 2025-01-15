@@ -27,7 +27,7 @@ public class CondominioServiceImpl implements CondominioService {
 
         var convertedCondominio = condominioMapper.toCondominio(condominioDto);
         if (convertedCondominio.getEndereco() != null) {
-            convertedCondominio.getEndereco().setCondominio(convertedCondominio);      ///em teste
+            convertedCondominio.getEndereco().setCondominio(convertedCondominio);
         }
         return repository.save(convertedCondominio);
 
@@ -50,8 +50,8 @@ public class CondominioServiceImpl implements CondominioService {
 
         var condominioExistente = repository.findById(id)
                 .orElseThrow(() -> new CondominioNotFoundException("Condomínio não encontrado com ID: " + id));
-       var condominioAtualizado = condominioMapper.toCondominio(condominioDto);
-         condominioAtualizado.setId(condominioExistente.getId());
+        var condominioAtualizado = condominioMapper.toCondominio(condominioDto);
+        condominioAtualizado.setId(condominioExistente.getId());
         if (condominioAtualizado.getEndereco() != null) {
             condominioAtualizado.getEndereco().setId(
                     condominioExistente.getEndereco() != null ? condominioExistente.getEndereco().getId() : null
@@ -60,7 +60,6 @@ public class CondominioServiceImpl implements CondominioService {
         }
         return repository.save(condominioAtualizado);
 
-        /////EM TESTE ---<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     }
 
     @Override

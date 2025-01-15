@@ -10,11 +10,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CondominioMapper {
 
-    @Mapping(source = "endereco", target = "endereco")  //TESTE Mapeando o campo endereco
-    CondominioDto fromCondominio (Condominio condominio);
+    @Mapping(source = "endereco", target = "endereco")
+    CondominioDto fromCondominio(Condominio condominio);
 
-    @Mapping(source = "endereco", target = "endereco")  //TESTE Mapeando o campo endereco
-    Condominio toCondominio (CondominioDto condominioDto);
+    @Mapping(source = "endereco", target = "endereco")
+    Condominio toCondominio(CondominioDto condominioDto);
 
     List<CondominioDto> toDTOList(List<Condominio> condominios);
 }

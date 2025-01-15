@@ -36,7 +36,7 @@ public class FuncionarioController {
    @GetMapping(FUNC_CPF)
     public ResponseEntity<FuncionarioDto> findByCpfFuncionario(@PathVariable String cpf) {
        var funcionarioDto = funcionarioService.findByCpfFuncionario(cpf);
-       return ResponseEntity.ok().body(funcionarioDto);
+       return ResponseEntity.status(HttpStatus.OK).body(funcionarioDto);
 
    }
 
@@ -45,7 +45,7 @@ public class FuncionarioController {
             @PathVariable Long condominioId,
             @PathVariable Long funcionarioId) {
         funcionarioService.delete(condominioId, funcionarioId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
 
     }
@@ -55,7 +55,7 @@ public class FuncionarioController {
             @PathVariable Long funcionarioId, @RequestBody FuncionarioDto funcionarioDto) {
         funcionarioDto.setId(funcionarioId);
         var funcionarioAtualizado = funcionarioService.update(condominioId, funcionarioId, funcionarioDto);
-        return ResponseEntity.ok().body(funcionarioAtualizado);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(funcionarioAtualizado);
 
     }
 
