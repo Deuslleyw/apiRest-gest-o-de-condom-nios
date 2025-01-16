@@ -12,6 +12,6 @@ public class MoradorDto {
     private Long id;
     private String nome;
     private String cpf;
-    private Long telefone;
+    private String telefone;
     private String email;
 }

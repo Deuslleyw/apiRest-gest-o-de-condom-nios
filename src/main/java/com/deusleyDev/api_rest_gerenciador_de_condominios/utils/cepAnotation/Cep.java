@@ -1,4 +1,4 @@
-package com.deusleyDev.api_rest_gerenciador_de_condominios.utils.phoneValidator;
+package com.deusleyDev.api_rest_gerenciador_de_condominios.utils.cepAnotation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -8,12 +8,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
-@Constraint(validatedBy = PhoneValidator.class)
+@Constraint(validatedBy = CepValidator.class)
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Phone {
-    String message() default "Número de telefone inválido, verifique e tente novamente";
+public @interface Cep {
+    String message() default "CEP inválido, verifique e tente novamente!";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+
 }

@@ -1,5 +1,6 @@
 package com.deusleyDev.api_rest_gerenciador_de_condominios.domain;
 
+import com.deusleyDev.api_rest_gerenciador_de_condominios.utils.phoneAnotation.Phone;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -26,9 +27,9 @@ public class Morador {
     @Column(nullable = false)
     private String cpf;
 
-    ///IMPLEMENTAR A VALIDAçAÔ
+    @Phone
     @Column(nullable = false)
-    private Long telefone;
+    private String telefone;
 
     @Email(message = "email inválido!")
     private String email;

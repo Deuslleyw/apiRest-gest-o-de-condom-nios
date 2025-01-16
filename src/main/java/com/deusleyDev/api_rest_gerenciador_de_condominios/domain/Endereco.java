@@ -1,10 +1,10 @@
 package com.deusleyDev.api_rest_gerenciador_de_condominios.domain;
 
 import com.deusleyDev.api_rest_gerenciador_de_condominios.Enums.UF;
+import com.deusleyDev.api_rest_gerenciador_de_condominios.utils.cepAnotation.Cep;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,11 +38,12 @@ public class Endereco {
     private String cidade;
 
     @Valid
-    @Column(nullable = false )
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UF uf;
 
-    @Column(nullable = false, length = 9)
+    @Cep
+    @Column(nullable = false)
     private String cep;
 
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
