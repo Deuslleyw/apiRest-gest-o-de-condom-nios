@@ -4,6 +4,7 @@ import com.deusleyDev.api_rest_gerenciador_de_condominios.domain.Apartamento;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.dto.ApartamentoDto;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.mapper.ApartamentoMapper;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.service.ApartamentoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,9 @@ public class ApartamentoController {
 
 
     @PostMapping("/{condominioId}")
-    public ResponseEntity<Apartamento> create(
-            @PathVariable Long condominioId,
-            @RequestBody ApartamentoDto apartamentoDto) {
+    public ResponseEntity<Apartamento> create(@Valid
+                                              @PathVariable Long condominioId,
+                                              @RequestBody ApartamentoDto apartamentoDto) {
 
         var novoApartamento = apartamentoService.create(condominioId, apartamentoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoApartamento);
@@ -42,17 +43,17 @@ public class ApartamentoController {
     }
 
     @GetMapping(value = ID)
-    public ResponseEntity<ApartamentoDto> findById(@PathVariable Long id) {
+    public ResponseEntity<ApartamentoDto> findById(@Valid @PathVariable Long id) {
         var responseId = apartamentoService.findById(id);
         var mapper = apartamentoMapper.fromApartamento(responseId);
         return ResponseEntity.status(HttpStatus.OK).body(mapper);
     }
 
     @PutMapping(COND_ID_AP_ID)
-    public ResponseEntity<Apartamento> update(
-            @PathVariable Long condominioId,
-
-            @PathVariable Long id, @RequestBody ApartamentoDto apartamentoDto) {
+    public ResponseEntity<Apartamento> update(@Valid
+                                              @PathVariable Long condominioId,
+                                              @PathVariable Long id,
+                                              @RequestBody ApartamentoDto apartamentoDto) {
         apartamentoDto.setId(id);
         Apartamento apartamentoAtualizado = apartamentoService.update(condominioId, id, apartamentoDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(apartamentoAtualizado);
@@ -60,9 +61,8 @@ public class ApartamentoController {
     }
 
     @DeleteMapping(COND_ID_AP_ID)
-    public ResponseEntity<?> delete(
-            @PathVariable Long condominioId,
-            @PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long condominioId,
+                                    @PathVariable Long id) {
         try {
             apartamentoService.delete(condominioId, id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

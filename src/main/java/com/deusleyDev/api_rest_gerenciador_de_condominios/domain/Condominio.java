@@ -2,6 +2,8 @@ package com.deusleyDev.api_rest_gerenciador_de_condominios.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +22,12 @@ public class Condominio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String notas;
 
+    @Column(nullable = false, length = 150)
+    private String nome;
+
+    @Size( max = 255)
+    private String notas;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")

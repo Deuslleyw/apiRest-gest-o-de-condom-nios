@@ -1,6 +1,6 @@
 package com.deusleyDev.api_rest_gerenciador_de_condominios.dto;
 
-import com.deusleyDev.api_rest_gerenciador_de_condominios.Enuns.UF;
+import com.deusleyDev.api_rest_gerenciador_de_condominios.Enums.UF;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

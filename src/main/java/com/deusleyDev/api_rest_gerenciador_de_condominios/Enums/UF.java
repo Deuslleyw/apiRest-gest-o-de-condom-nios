@@ -1,4 +1,4 @@
-package com.deusleyDev.api_rest_gerenciador_de_condominios.Enuns;
+package com.deusleyDev.api_rest_gerenciador_de_condominios.Enums;
 
 
 import lombok.Getter;

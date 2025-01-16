@@ -5,6 +5,7 @@ import com.deusleyDev.api_rest_gerenciador_de_condominios.dto.MoradorDto;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.exceptions.ApartamentoNotFoundException;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.exceptions.DataIntegrityViolationException;
 import com.deusleyDev.api_rest_gerenciador_de_condominios.service.MoradorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,10 @@ public class MoradorController {
 
 
     @PostMapping(COND_ID_AP_ID)
-    public ResponseEntity<?> create(
-            @PathVariable Long condominioId,
-            @PathVariable Long apartamentoId,
-            @RequestBody MoradorDto moradorDto) {
+    public ResponseEntity<?> create(@Valid
+                                    @PathVariable Long condominioId,
+                                    @PathVariable Long apartamentoId,
+                                    @RequestBody MoradorDto moradorDto) {
         try {
             Morador moradorAtribuido = moradorService.create(condominioId, apartamentoId, moradorDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(moradorAtribuido);
@@ -40,11 +41,11 @@ public class MoradorController {
     }
 
     @PutMapping(COND_ID_AP_ID_MID)
-    public ResponseEntity<?> update(
-            @PathVariable Long condominioId,
-            @PathVariable Long apartamentoId,
-            @PathVariable Long moradorId,
-            @RequestBody MoradorDto moradorDto) {
+    public ResponseEntity<?> update(@Valid
+                                    @PathVariable Long condominioId,
+                                    @PathVariable Long apartamentoId,
+                                    @PathVariable Long moradorId,
+                                    @RequestBody MoradorDto moradorDto) {
         try {
             Morador moradorAtualizado = moradorService.update(condominioId, apartamentoId, moradorId, moradorDto);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(moradorAtualizado);
@@ -56,10 +57,9 @@ public class MoradorController {
     }
 
     @DeleteMapping(COND_ID_AP_ID_MID)
-    public ResponseEntity<?> delete(
-            @PathVariable Long condominioId,
-            @PathVariable Long apartamentoId,
-            @PathVariable Long moradorId) {
+    public ResponseEntity<?> delete(@PathVariable Long condominioId,
+                                    @PathVariable Long apartamentoId,
+                                    @PathVariable Long moradorId) {
         moradorService.delete(condominioId, apartamentoId, moradorId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
