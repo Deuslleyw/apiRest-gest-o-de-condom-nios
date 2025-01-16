@@ -1,5 +1,6 @@
 package com.deusleyDev.api_rest_gerenciador_de_condominios.dto;
 
+import com.deusleyDev.api_rest_gerenciador_de_condominios.Enuns.UF;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ public class EnderecoDto {
     private String complemento;
     private String bairro;
     private String cidade;
-    private String estado;
+    private UF uf;
     private String cep;
 
 }

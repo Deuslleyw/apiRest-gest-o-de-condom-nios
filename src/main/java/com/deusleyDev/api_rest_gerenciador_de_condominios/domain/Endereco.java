@@ -1,5 +1,6 @@
 package com.deusleyDev.api_rest_gerenciador_de_condominios.domain;
 
+import com.deusleyDev.api_rest_gerenciador_de_condominios.Enuns.UF;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,8 @@ public class Endereco {
     private String complemento;
     private String bairro;
     private String cidade;
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    private UF uf;
     private String cep;
 
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
